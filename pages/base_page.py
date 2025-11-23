@@ -16,8 +16,13 @@ class BasePage:
         )
 
     def click(self, locator):
-        """요소를 찾아서 클릭"""
-        element = self.find(locator)
+        """
+        요소를 찾아서 클릭
+        fix: 요소 클릭 가능 상태일때까지 기다리기
+        """
+        element = WebDriverWait(self.driver, self.timeout).until(
+            EC.element_to_be_clickable(locator)
+        )
         element.click()
 
     def input_text(self, locator, text):
